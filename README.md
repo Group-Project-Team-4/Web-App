@@ -18,7 +18,7 @@ python3 -m venv .venv
 4. Lastly, install the dependencies for the appliction
 
 ```shell
-pip install Flask
+pip3 install Flask
 ```
 
 ### Activation examples
