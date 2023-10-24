@@ -28,7 +28,7 @@ Windows (cmd.exe):
 .venv\Scripts\Activate.bat
 ```
 
-4. Lastly, install the dependencies for the appliction
+4. Lastly, install the dependencies for the application
 
 ```shell
 pip3 install -r requirements.txt
