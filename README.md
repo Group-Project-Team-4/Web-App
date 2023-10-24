@@ -1,46 +1,37 @@
 # Web-App
 
-Flask clothing store web application for group project.
+Flask web application for group project.
 
 ## Installation
 
 1. Clone this repository and `cd` into it
-2. Create a python virtual environment in the root directory
+2. Create a python virtual environment in the root directory.
 
 ```shell
 python3 -m venv .venv
 ```
+3. Activate the virtual environment [according to your platform](https://docs.python.org/3/library/venv.html#how-venvs-work).
 
-3. Activate the virtual environment
+#### Activation examples:
+**NOTE:** You will need to re-activate the virtual environment if your terminal is closed (shutting off PC, closing terminal app, etc.). Always ensure that the virtual environment is active before attempting to run the application, and always ensure that it is **NOT** active when you are not working with the application, but are still using the terminal.
 
-   - The invocation of the activation script is platform-specific, you can check the [venv docs](https://docs.python.org/3/library/venv.html#how-venvs-work) for more information. See below for [activation examples](#activation-examples) of activation on common platforms/shells.
+Linux/Mac (bash/zsh/Any Bourne-compatible shell):
+```shell
+source .venv/bin/activate
+```
+Windows (PowerShell):
+```shell
+.venv\Scripts\Activate.ps1
+```
+Windows (cmd.exe):
+```shell
+.venv\Scripts\Activate.bat
+```
 
 4. Lastly, install the dependencies for the appliction
 
 ```shell
 pip3 install Flask
-```
-
-### Activation examples
-
-_I have not tested if the Windows commands work_
-
-#### bash/zsh (Linux & Mac)
-
-```bash
-source .venv/bin/activate
-```
-
-#### Windows PowerShell
-
-```powershell
-PS C:\> .venv\Scripts\Activate.ps1
-```
-
-#### Windows cmd.exe
-
-```cmd
-C:\> .venv\Scripts\activate.bat
 ```
 
 ## Running the application
@@ -91,6 +82,5 @@ coverage run -m pytest
 
 ## Overall tips:
 
-- Always make sure you are in the root directory `Web-App` and the virtual environment is active.
-  - To check if the virtual environment is active run `which python`, this should print out a path to the projects virtual environment somewhere in the root `Web-App` directory if the virtual environment is active
-- If you are ever using a new terminal (like turning off the computer or opening a new terminal), you will need to re-activate the virtual environment before running any commands like, for example, starting the development server
+- When working with the application, always make sure you are in the root directory `Web-App` and the virtual environment is active.
+- To check if the virtual environment is active, run `which python`, which should print out a path to the project's virtual environment in the root `Web-App` directory if the virtual environment is active
