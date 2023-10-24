@@ -6,10 +6,10 @@
 
 {% block content %}
   <form method="post">
-    <label for="title">Title</label>
-    <input name="title" id="title" value="{{ request.form['title'] }}" required>
-    <label for="body">Body</label>
-    <textarea name="body" id="body">{{ request.form['body'] }}</textarea>
-    <input type="submit" value="Save">
+    <label for="post_title_textinputtle">Title</label>
+    <input name="title" id="post_title_textinput" value="{{ request.form['title'] }}" required>
+    <label for="post_body_textinput">Body</label>
+    <textarea name="body" id="post_body_textinput">{{ request.form['body'] }}</textarea>
+    <input type="submit" id="post_submit_button" value="Save">
   </form>
 {% endblock %}
