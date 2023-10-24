@@ -31,7 +31,7 @@ Windows (cmd.exe):
 4. Lastly, install the dependencies for the appliction
 
 ```shell
-pip3 install Flask
+pip3 install -r requirements.txt
 ```
 
 ## Running the application
