@@ -13,6 +13,6 @@ dist/
 build/
 *.egg-info/
 
-.idea
-.vscode
+.idea/
+.vscode/
 .DS_store
