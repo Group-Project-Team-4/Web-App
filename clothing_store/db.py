@@ -27,6 +27,10 @@ def init_db():
     with current_app.open_resource("schema.sql") as f:
         db.executescript(f.read().decode("utf8"))
 
+    # populate the database with some initial data
+    with current_app.open_resource("populate.sql") as f:
+        db.executescript(f.read().decode("utf8"))
+
 
 @click.command("init-db")
 def init_db_command():
