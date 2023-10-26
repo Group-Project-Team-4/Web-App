@@ -1,4 +1,7 @@
 DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS product_category;
+DROP TABLE IF EXISTS product;
+DROP TABLE IF EXISTS cart_item;
 DROP TABLE IF EXISTS post;
 
 CREATE TABLE user (
@@ -7,6 +10,30 @@ CREATE TABLE user (
   password TEXT NOT NULL
 );
 
+CREATE TABLE product_category (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL
+);
+
+CREATE TABLE product (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  price REAL NOT NULL,
+  description TEXT NOT NULL,
+  category_id INTEGER NOT NULL,
+  FOREIGN KEY (category_id) REFERENCES product_category (id)
+);
+
+CREATE TABLE cart_item (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  product_id INTEGER NOT NULL,
+  user_id INTEGER NOT NULL,
+  quantity INTEGER NOT NULL,
+  FOREIGN KEY (product_id) REFERENCES product (id)
+  FOREIGN KEY (user_id) REFERENCES user (id)
+);
+
+-- TODO: delete this table
 CREATE TABLE post (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   author_id INTEGER NOT NULL,
