@@ -45,4 +45,16 @@ def create_app(test_config=None):
     app.register_blueprint(store.bp)
     app.add_url_rule("/", endpoint="index")
 
+    # register the shop blueprint
+    from . import shop
+
+    app.register_blueprint(shop.bp)
+    app.add_url_rule("/shop", endpoint="index")
+
+    # register the cart blueprint
+    from . import cart
+
+    app.register_blueprint(cart.bp)
+    app.add_url_rule("/cart", endpoint="index")
+
     return app
