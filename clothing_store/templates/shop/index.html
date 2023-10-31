@@ -24,7 +24,12 @@
 
     {% for product in products %}
       <div class="product" data-product-category="{{ product.category_id }}">
-        <div class="product-image"></div>
+        <div class="product-image">
+          <img width="auto"
+               height="auto"
+               src="{{ url_for('static', filename='images/' + product.name.lower().replace(' ', '-') + '.jpg') }}"
+               alt="{{ product.name }}" />
+        </div>
         <div class="product-info-container">
           <p class="product-name">{{ product.name }}</p>
           <p class="product-price">${{ product.price }}</p>
