@@ -9,21 +9,21 @@
 {% endblock title %}
 
 {% block header %}
-  <div class="product-filters">
+  <form id="product-filter-form" class="product-filters">
     <label for="category">Category:</label>
     <select id="category-select" name="category">
       <option>All</option>
 
-      {% for category in product_categories %}<option>{{ category.name }}</option>{% endfor %}
+      {% for category in product_categories %}<option value="{{ category.id }}">{{ category.name }}</option>{% endfor %}
     </select>
-  </div>
+  </form>
 {% endblock header %}
 
 {% block content %}
   <div class="products-container">
 
     {% for product in products %}
-      <div class="product">
+      <div class="product" data-product-category="{{ product.category_id }}">
         <div class="product-image"></div>
         <div class="product-info-container">
           <p class="product-name">{{ product.name }}</p>
@@ -33,3 +33,25 @@
     {% endfor %}
   </div>
 {% endblock content %}
+
+{% block scripts %}
+  <script>
+    // Set the category select to the current category (it resets to "All" on page refresh without this)
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const category = urlParams.get('category');
+    console.log(category);
+
+    const categorySelect = document.getElementById('category-select');
+    if (category) {
+      categorySelect.value = category;
+    }
+
+    // Submit the filter form when the category select changes
+    const filterForm = document.getElementById('product-filter-form');
+
+    categorySelect.addEventListener('change', (event) => {
+      filterForm.submit();
+    });
+  </script>
+{% endblock scripts %}
