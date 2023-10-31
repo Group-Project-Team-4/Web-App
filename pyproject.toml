@@ -16,3 +16,8 @@ testpaths = ["tests"]
 [tool.coverage.run]
 branch = true
 source = ["clothing_store"]
+
+[tool.djlint]
+indent=2
+blank_line_before_tag="load,extends,include,block,if,for,macro,filter,with,autoescape"
+max_line_length=220
