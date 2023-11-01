@@ -32,3 +32,15 @@ def index():
     return render_template(
         "shop/index.html", products=products, product_categories=product_categories
     )
+
+
+@bp.route("/shop/<int:product_id>")
+def product(product_id):
+    db = get_db()
+
+    # Get the product with the specified id
+    product = db.execute(
+        "SELECT id, name, price, description, category_id" " FROM product WHERE id = ?", (str(product_id))
+    ).fetchone()
+
+    return render_template("shop/product.html", product=product)
