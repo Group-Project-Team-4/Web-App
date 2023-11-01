@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block head %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/product.css') }}">
+{% endblock %}
+
+{% block title %}
+  {{ product.name }}
+{% endblock title %}
+
+{% block content %}
+  <div class="product">
+    <img id="product-image"
+         width="auto"
+         height="auto"
+         src="{{ url_for('static', filename='images/' + product.name.lower().replace(' ', '-') + '.jpg') }}"
+         alt="{{ product.name }}" />
+    <div class="product-info">
+      <h2 id="product-name">{{ product.name }}</h2>
+      <p id="product-description">{{ product.description }}</p>
+      <div class="product-footer">
+        <p>
+          <span id="product-price">${{ product.price }}</span> + Free Shipping
+        </p>
+        <button id="add-to-cart-button">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
