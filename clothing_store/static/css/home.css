@@ -1,0 +1,42 @@
+html {
+  font-family: sans-serif;
+  background: #eee;
+  height: 100%;
+}
+
+body {
+  margin: 0 auto;
+  background: white;
+  height: 100%;
+}
+
+#home_page_section {
+    background-image: url('../images/home-page-background.png');
+    display: flex;
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#home_div {
+    background-color: rgba(0, 0, 0, 0.50);
+    margin: auto;
+    width: 300px;
+    height: 175px;
+    text-align: center;
+}
+
+#home_div h1 {
+    font-size: 24px;
+    color: white;
+}
+
+#home_div button {
+    font-size: 14px;
+    color: black;
+    font-weight: bold;
+    background-color: white;
+    border-radius: 0;
+    border: 0px;
+    padding: 10px 15px 10px 15px;
+}
