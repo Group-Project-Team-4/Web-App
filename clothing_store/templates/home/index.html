@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cool Clothing</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+</head>
+<nav>
+  <h1>Cool Clothing</h1>
+  <ul>
+    <li><a id="base_home_anchor" href="{{ url_for('shop.index') }}">Shop</a></li>
+    {% if g.user %}
+      <li><a id="base_profile_anchor" href="{{ url_for('cart.index') }}">My Cart</a></li>
+      <li><a id="base_logout_anchor" href="{{ url_for('auth.logout') }}">Log Out</a></li>
+    {% else %}
+      <li><a id="base_login_anchor" href="{{ url_for('auth.login') }}">Log In</a></li>
+      <li><a id="base_register_anchor" href="{{ url_for('auth.register') }}">Register</a></li>
+    {% endif %}
+  </ul>
+</nav>
+<section id="home_page_section">
+    <div id="home_div">
+        <h1>The Coolest Clothing You've Ever Seen</h1>
+        <br>
+        <a href="{{ url_for('shop.index') }}"><button>Shop Now</button></a>
+    </div>
+</section>
+</html>
