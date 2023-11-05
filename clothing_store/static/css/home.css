@@ -1,15 +1,3 @@
-html {
-  font-family: sans-serif;
-  background: #eee;
-  height: 100%;
-}
-
-body {
-  margin: 0 auto;
-  background: white;
-  height: 100%;
-}
-
 #home_page_section {
     background-image: url('../images/home-page-background.png');
     display: flex;

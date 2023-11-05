@@ -4,16 +4,13 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
 {% endblock %}
 
-{% block header %}
-  <h1>{% block title %}Log In{% endblock %}</h1>
-{% endblock %}
-
 {% block content %}
+  <h1>{% block title %}Log In{% endblock %}</h1>
   <form method="post">
-    <label for="login_username_textinput">Username</label>
-    <input name="username" id="login_username_textinput" required>
-    <label for="login_password_textinput">Password</label>
-    <input type="password" name="password" id="login_password_textinput" required>
-    <input type="submit" id="login_submit_button" value="Log In">
+      <label for="login_username_textinput">Username</label>
+      <input name="username" id="login_username_textinput" required>
+      <label for="login_password_textinput">Password</label>
+      <input type="password" name="password" id="login_password_textinput" required>
+      <input type="submit" id="login_submit_button" value="Log In">
   </form>
 {% endblock %}
