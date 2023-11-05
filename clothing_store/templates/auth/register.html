@@ -4,16 +4,13 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
 {% endblock %}
 
-{% block header %}
-  <h1>{% block title %}Register{% endblock %}</h1>
-{% endblock %}
-
 {% block content %}
+  <h1>{% block title %}Register{% endblock %}</h1>
   <form method="post">
-    <label for="register_username_textinput">Username</label>
-    <input name="username" id="register_username_textinput" required>
-    <label for="register_password_textinput">Password</label>
-    <input type="password" name="password" id="register_password_textinput" required>
-    <input type="submit" id="register_submit_button" value="Register">
+      <label for="register_username_textinput">Username</label>
+      <input name="username" id="register_username_textinput" required>
+      <label for="register_password_textinput">Password</label>
+      <input type="password" name="password" id="register_password_textinput" required>
+      <input type="submit" id="register_submit_button" value="Register">
   </form>
 {% endblock %}
