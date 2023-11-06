@@ -43,7 +43,10 @@
               <input class="cart-item-remove" type="submit" value="Remove">
             </form>
             #}
-          <input class="cart-item-remove" type="submit" value="Remove">
+          <form id="remove-from-cart-form" action="{{ url_for('cart.remove') }}" method="post">
+            <input type="hidden" name="product_id" value="{{ item.product_id }}" />
+            <button type="submit" class="cart-item-remove">Remove</button>
+          </form>
         </div>
       {% endfor %}
     </div>
