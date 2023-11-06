@@ -50,7 +50,7 @@
       <input type="text" name="cvc" id="cvc" class="text-input" placeholder="123" minlength="3" maxLength="3" value="{{ request.form['cvc'] }}" required>
     </div>
 
-    <input type="submit" value="Pay $9,999" class="checkout-button">
+    <button type="submit" class="checkout-button">Pay $<span>{{ total_price }}</span></button>
   </form>
 {% endblock content %}
 
