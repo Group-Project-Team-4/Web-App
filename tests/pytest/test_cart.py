@@ -16,6 +16,7 @@ def test_cart(client, app, auth):
 PRODUCT_ID = 3
 USER_ID = 1
 
+
 def test_add_to_cart(client, app, auth):
     # test add to cart responds with 401 if user is not logged in
     assert client.post("/cart").status_code == 401
@@ -84,3 +85,37 @@ def test_add_to_cart_validate_input(client, auth, data, message):
     response = client.post("/cart", data=data)
     assert response.status_code == 400
     assert message in response.data
+
+
+def test_remove_from_cart(client, app, auth):
+    # test remove from cart responds with 401 if user is not logged in
+    assert client.post("/cart/remove").status_code == 401
+
+    # test remove from cart responds with 302 and redirects to cart page if user is logged in
+    auth.login()
+
+    # add item to cart to test remove from cart
+    response = client.post(
+        "/cart", data={"product_id": PRODUCT_ID, "quantity": 1})
+    with app.app_context():
+        assert (
+            get_db()
+            .execute(
+                f"SELECT * FROM cart_item WHERE user_id = '{USER_ID}' AND product_id = '{PRODUCT_ID}'",
+            )
+            .fetchone()
+            is not None
+        )
+
+    # test remove route removes item from cart_item table
+    response = client.post("/cart/remove", data={"product_id": PRODUCT_ID})
+    assert response.status_code == 302
+    with app.app_context():
+        assert (
+            get_db()
+            .execute(
+                f"SELECT * FROM cart_item WHERE user_id = '{USER_ID}' AND product_id = '{PRODUCT_ID}'",
+            )
+            .fetchone()
+            is None
+        )
