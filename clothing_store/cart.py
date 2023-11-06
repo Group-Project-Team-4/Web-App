@@ -103,3 +103,29 @@ def index():
     # render the cart page
     formatted_total_price = "{:.2f}".format(total_price)
     return render_template("cart.html", cart=cart, total_price=formatted_total_price)
+
+
+@bp.route("/cart/remove", methods=("POST",))
+def remove():
+    # redirect to login page if user is not logged in
+    if g.user is None:
+        return redirect(url_for("auth.login"), code=401)
+
+    product_id = None
+
+    # validate product_id is provided in request
+    try:
+        product_id = request.form["product_id"]
+    except KeyError:
+        abort(400, "Product ID is required.")
+
+    print(product_id)
+    # remove item from cart
+    db = get_db()
+    db.execute(
+        "DELETE FROM cart_item WHERE product_id = ? AND user_id = ?",
+        (int(product_id), str(g.user["id"])),
+    )
+    db.commit()
+
+    return redirect(request.referrer)
