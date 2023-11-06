@@ -29,4 +29,6 @@ def index():
     for item in cart:
         total_price += item["price"] * item["quantity"]
 
-    return render_template("cart.html", cart=cart, total_price=total_price)
+    # render the cart page
+    formatted_total_price = "{:.2f}".format(total_price)
+    return render_template("cart.html", cart=cart, total_price=formatted_total_price)
