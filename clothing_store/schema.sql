@@ -20,6 +20,7 @@ CREATE TABLE product (
   name TEXT NOT NULL,
   price REAL NOT NULL,
   description TEXT NOT NULL,
+  quantity INTEGER NOT NULL DEFAULT 0,
   category_id INTEGER NOT NULL,
   FOREIGN KEY (category_id) REFERENCES product_category (id)
 );
