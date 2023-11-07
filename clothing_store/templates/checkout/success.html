@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block head %}
+  <link rel="stylesheet"
+        href="{{ url_for('static', filename='css/checkout.css') }}">
+{% endblock %}
+
+{% block title %}
+  Checkout Success
+{% endblock title %}
+
+{% block header %}
+  <div class="success-header">
+    <h1>Checkout Success!</h1>
+  </div>
+{% endblock header %}
+
+{% block content %}
+  <div class="success-message-container">
+    <p class="success-message">
+      <span>Congratulations!</span> Your clothing is already on its way.
+    </p>
+  </div>
+{% endblock content %}
+
+{% block scripts %}
+{% endblock scripts %}

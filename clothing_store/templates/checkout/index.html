@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block head %}
+  <link rel="stylesheet"
+        href="{{ url_for('static', filename='css/checkout.css') }}">
+{% endblock %}
+
+{% block title %}
+  Checkout
+{% endblock title %}
+
+{% block header %}
+    <h1 id="checkout-heading">Checkout</h1>
+{% endblock header %}
+
+{% block content %}
+  <form id="checkout-form" action="{{ url_for('checkout.index') }}" method="post">
+
+    <div id="shipping-information" class="form-group">
+      <h2>Shipping Information</h2>
+      <label for="email">Email</label>
+      <input type="email" name="email" id="email" class="text-input" value="{{ request.form['email'] }}" required>
+
+      <label for="name">First & last name</label>
+      <input type="text" name="name" id="name" class="text-input" value="{{ request.form['name'] }}" required>
+
+      <label for="address">Address</label>
+      <input type="text" name="address" id="address" class="text-input" value="{{ request.form['address'] }}" required>
+
+      <div class="select-container">
+        <label for="country">Country:</label>
+        <select name="country" id="country" class="select-input" value="{{ request.form['country'] }}" required>
+          <option value="usa">United States</option>
+          <option value="canada">Canada</option>
+          <option value="mexico">Mexico</option>
+          <option value="brazil">Brazil</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="payment-details" class="form-group">
+      <h2>Payment details</h2>
+      <label for="credit-card">Card number</label>
+      <input type="text" name="credit-card" id="credit-card" class="text-input" placeholder="1234 1234 1234 1234" minlength="16" value="{{ request.form['credit-card'] }}" required>
+
+      <label for="expiration-date">Expiration Date</label>
+      <input type="text" name="expiration-date" id="expiration-date" class="text-input" placeholder="MM / YY" value="{{ request.form['expiration-date'] }}" required>
+
+      <label for="cvc">CVC</label>
+      <input type="text" name="cvc" id="cvc" class="text-input" placeholder="123" minlength="3" maxLength="3" value="{{ request.form['cvc'] }}" required>
+    </div>
+
+    <button type="submit" class="checkout-button">Pay $<span>{{ total_price }}</span></button>
+  </form>
+{% endblock content %}
+
+{% block scripts %}
+{% endblock scripts %}
