@@ -42,6 +42,7 @@ def index():
                 return redirect(request.referrer)
 
         # TODO: redirect to checkout success page
+        return redirect(url_for("checkout.success"))
 
     # get all items in the cart for the current user
     cart = db.execute(
@@ -64,4 +65,13 @@ def index():
         total_price += item["price"] * item["quantity"]
 
     formatted_total_price = "{:.2f}".format(total_price)
-    return render_template("checkout.html", total_price=formatted_total_price)
+    return render_template("checkout/index.html", total_price=formatted_total_price)
+
+
+@bp.route("/checkout/success")
+def success():
+    # redirect to login page if user is not logged in
+    if g.user is None:
+        return redirect(url_for("auth.login"), code=401)
+
+    return render_template("checkout/success.html")

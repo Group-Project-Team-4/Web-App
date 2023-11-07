@@ -61,3 +61,26 @@ select {
   padding: 8px 0;
   cursor: pointer;
 }
+
+/* success page */
+.success-header {
+  width: 100%;
+  padding-top: 36px;
+}
+
+.success-header h1 {
+  font-size: 24px;
+  text-align: center;
+}
+
+.success-message-container {
+  width: 100%;
+}
+
+.success-message {
+  text-align: center;
+}
+
+.success-message span {
+  color: green;
+}
