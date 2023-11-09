@@ -52,7 +52,7 @@ def index():
         JOIN product ON product_id = product.id
         WHERE user_id = ?
         """,
-        (str(g.user["id"])),
+        [str(g.user["id"])],
     ).fetchall()
 
     # check if cart is empty

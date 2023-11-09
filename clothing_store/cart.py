@@ -39,7 +39,7 @@ def index():
         JOIN product ON product_id = product.id
         WHERE user_id = ?
         """,
-        (str(g.user["id"])),
+        [str(g.user["id"])],
     ).fetchall()
 
     # post method for adding items to cart
