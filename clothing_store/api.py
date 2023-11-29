@@ -16,11 +16,25 @@ def get_products():
     return jsonify(response)
 
 
+# There was no endpoint planned in the overview for retrieving a single product,
+# but I think having one will be useful and important for testing.
+@bp.route('/api/products/<int:id>', methods=['GET'])
+def get_product(id: int):
+    db = get_db()
+
+    product = db.execute('SELECT id, name, price, description, quantity, category_id FROM product WHERE id = ?', str(id))
+    if not product:
+        return jsonify({'error': f'Item with ID {id} not found.'})
+
+    return {"success": True, "product": dict(product.fetchone())}
+
+
 @bp.route('/api/products', methods=['POST'])
 def add_product():
     db = get_db()
     product = request.json['product']
     if validate_product(product):
+        # Organize data for inserting into the database.
         data = (product['name'],
                 product['price'],
                 product['description'],
@@ -39,6 +53,7 @@ def add_product():
 
 
 def validate_product(product: dict):
+    # Check every value to ensure it is both present and valid.
     if not isinstance(product['quantity'], int) or product['quantity'] < 0:
         return False
     if not isinstance(product['category_id'], int) or product['category_id'] < 0:
@@ -52,30 +67,73 @@ def validate_product(product: dict):
 
     return True
 
-# TODO: Finish implementation of these endpoints
-# @bp.route('/api/products/<int:id>', methods=['PUT'])
-# def update_product(id: int):
-#     db = get_db()
-#     new_data = request.json['product']
-#     if validate_new_data(new_data):
-#    else:
-#        return jsonify({'error': 'Invalid product information.'})
+
+@bp.route('/api/products/<int:id>', methods=['PUT'])
+def update_product(id: int):
+    db = get_db()
+
+    # Error if the given ID does not exist in the database yet.
+    product_exists = db.execute('SELECT id FROM product WHERE id = ?', (id))
+    if not product_exists:
+        return jsonify({'error': f'Product with ID {id} not found.'})
+
+    new_data = request.json['product']
+    # Iterate through every key/value included in the request
+    for key, value in new_data.items():
+        if not validate_new_data((key, value)):
+            return jsonify({'error': 'Invalid product information.'})
+        else:
+            # To avoid SQL injection-prone code, and to use SQLite parameterization appropriately,
+            # the key is matched to a specific SQL statement. Errors out if not found.
+            match key:
+                case 'name':
+                    db.execute('UPDATE product SET name = ? WHERE id = ?', (value, id))
+                case 'description':
+                    db.execute('UPDATE product SET description = ? WHERE id = ?', (value, id))
+                case 'quantity':
+                    db.execute('UPDATE product SET quantity = ? WHERE id = ?', (value, id))
+                case 'category_id':
+                    db.execute('UPDATE product SET category_id = ? WHERE id = ?', (value, id))
+                case 'price':
+                    db.execute('UPDATE product SET price  = ? WHERE id = ?', (value, id))
+                case _:
+                    return jsonify({'error': 'Invalid product information.'})
+
+            db.commit()
+
+    # Product with new data is retrieved from the database for response
+    db_product = dict(db.execute('SELECT id, name, price, description, quantity, category_id FROM product WHERE id = ?', str(id)).fetchone())
+    response = {"success": True, "product": db_product}
+    return response
 
 
-# def validate_new_data(data: dict):
-#    for key, value in data:
-#        match key:
-#            case 'quantity' | 'category_id':
-#                if not isinstance(value, int) or value < 0:
-#                    return False
-#            case 'price':
-#                if not isinstance(value, float) or value < 0:
-#                    return False
-#            case 'name' | 'description':
-#                if not isinstance(value, str):
-#                    return False
-#
-#    return True
+def validate_new_data(data: tuple):
+    key = data[0]
+    value = data[1]
+    match key:
+        case 'quantity' | 'category_id':
+            if not isinstance(value, int) or value < 0:
+                return False
+        case 'price':
+            if not isinstance(value, float) or value < 0:
+                return False
+        case 'name' | 'description':
+            if not isinstance(value, str):
+                return False
 
-#@bp.route('/api/products/<int:id>', methods=('DELETE'))
-#def delete_product(id: int):
+    return True
+
+
+@bp.route('/api/products/<int:id>', methods=['DELETE'])
+def delete_product(id: int):
+    db = get_db()
+
+    # Error if the given ID does not exist in the database.
+    product_exists = db.execute('SELECT id FROM product WHERE id = ?', (id))
+    if not product_exists:
+        return jsonify({'error': f'Product with ID {id} not found.'})
+
+    db.execute('DELETE FROM product WHERE id = ?', (id))
+    db.commit()
+
+    return jsonify({'success': True})
