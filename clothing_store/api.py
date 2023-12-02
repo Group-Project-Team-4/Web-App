@@ -47,7 +47,7 @@ def add_product():
         # Retrieve newly added product to include in the response using the name and description
         db_product = dict(db.execute('SELECT id, name, price, description, quantity, category_id FROM product WHERE name = ? AND description = ?', (product['name'], product['description'])).fetchone())
         response = {"success": True, "product": db_product}
-        return response
+        return response, 201
     else:
         return jsonify({'error': 'Invalid product information.'})
 
