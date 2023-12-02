@@ -48,7 +48,7 @@ def add_product():
         db_product_id = dict(db.execute('SELECT MAX(id) FROM product').fetchone())['MAX(id)']
         db_product = dict(db.execute('SELECT id, name, price, description, quantity, category_id FROM product WHERE id = ?', (str(db_product_id),)).fetchone())
         response = {"success": True, "product": db_product}
-        return response
+        return response, 201
     else:
         return jsonify({'error': 'Invalid product information.'})
 
