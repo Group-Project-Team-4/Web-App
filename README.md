@@ -30,7 +30,7 @@ Windows (cmd.exe):
 
 4. Lastly, install the dependencies for the application
 
-```shell
+```sh
 pip3 install -r requirements.txt
 ```
 
@@ -40,13 +40,13 @@ pip3 install -r requirements.txt
 
 2. Initialize the database
 
-```
+```sh
 flask --app clothing_store init-db
 ```
 
 3. Run the application, the `--debug` option will automatically rerun the application when files change. However, you will still have to refresh the browser to see the changes.
 
-```
+```sh
 flask --app clothing_store run --debug
 ```
 
@@ -58,7 +58,7 @@ flask --app clothing_store run --debug
 
 First install the testing tools `pytest` and `coverage` in your virtual environment
 
-```
+```sh
 pip install pytest coverage
 ```
 
@@ -66,18 +66,25 @@ pip install pytest coverage
 
 1. For testing with `pytest` to work you will need to install the clothing store application with `pip`. Make sure you are in the root project directory `Web-App` and your virtual environment is activated.
 
-```
+```sh
 pip install -e .
 ```
 
-2. Then just run `pytest`
+2. Then, from the root of the repository run the `pytest` command.
+
+**IMPORTANT**: The `tests` directory also contains Selenium and API tests, which **ARE NOT** Pytest scripts. Running `pytest` on its own will cause it to source incompatible files, which will create errors and fail to run the actual test scripts. Anytime you want to run `pytest` or `coverage`, you **MUST** specify the `tests/pytest` directory in the command to make sure only the appropriate test scripts are sourced.
+
+```sh
+pytest tests/pytest
+```
+
 
 #### Coverage
 
 To measure code coverage of the tests, use the `coverage` command to run `pytest` instead of running it directly.
 
 ```
-coverage run -m pytest
+coverage run -m pytest tests/pytest
 ```
 
 ## Overall tips:
