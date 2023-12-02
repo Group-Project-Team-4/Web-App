@@ -22,7 +22,7 @@ def get_products():
 def get_product(id: int):
     db = get_db()
 
-    product = db.execute('SELECT id, name, price, description, quantity, category_id FROM product WHERE id = ?', str(id))
+    product = db.execute('SELECT id, name, price, description, quantity, category_id FROM product WHERE id = ?', (str(id),))
     if not product:
         return jsonify({'error': f'Item with ID {id} not found.'})
 
@@ -45,7 +45,8 @@ def add_product():
         db.execute('INSERT INTO product (name, price, description, quantity, category_id) VALUES(?, ?, ?, ?, ?)', data)
         db.commit()
         # Retrieve newly added product to include in the response using the name and description
-        db_product = dict(db.execute('SELECT id, name, price, description, quantity, category_id FROM product WHERE name = ? AND description = ?', (product['name'], product['description'])).fetchone())
+        db_product_id = dict(db.execute('SELECT MAX(id) FROM product').fetchone())['MAX(id)']
+        db_product = dict(db.execute('SELECT id, name, price, description, quantity, category_id FROM product WHERE id = ?', (str(db_product_id),)).fetchone())
         response = {"success": True, "product": db_product}
         return response
     else:
@@ -73,7 +74,7 @@ def update_product(id: int):
     db = get_db()
 
     # Error if the given ID does not exist in the database yet.
-    product_exists = db.execute('SELECT id FROM product WHERE id = ?', (id))
+    product_exists = db.execute('SELECT id FROM product WHERE id = ?', (str(id),))
     if not product_exists:
         return jsonify({'error': f'Product with ID {id} not found.'})
 
@@ -102,7 +103,7 @@ def update_product(id: int):
             db.commit()
 
     # Product with new data is retrieved from the database for response
-    db_product = dict(db.execute('SELECT id, name, price, description, quantity, category_id FROM product WHERE id = ?', str(id)).fetchone())
+    db_product = dict(db.execute('SELECT id, name, price, description, quantity, category_id FROM product WHERE id = ?', (str(id),)).fetchone())
     response = {"success": True, "product": db_product}
     return response
 
@@ -129,11 +130,11 @@ def delete_product(id: int):
     db = get_db()
 
     # Error if the given ID does not exist in the database.
-    product_exists = db.execute('SELECT id FROM product WHERE id = ?', (id))
+    product_exists = db.execute('SELECT id FROM product WHERE id = ?', (str(id),))
     if not product_exists:
         return jsonify({'error': f'Product with ID {id} not found.'})
 
-    db.execute('DELETE FROM product WHERE id = ?', (id))
+    db.execute('DELETE FROM product WHERE id = ?', (str(id),))
     db.commit()
 
     return jsonify({'success': True})
