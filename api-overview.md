@@ -39,6 +39,30 @@ No JSON is needed for this request.
 
 ---
 
+### `GET` `/api/products/<id>`
+
+Returns a product with an ID of `<id>`
+
+#### Request
+No JSON is needed for this request.
+
+#### Response from `/api/products/1`
+```json
+{
+    "success": true,
+    "product": {
+        "category_id": 1,
+        "description": "A comfortable shirt.",
+        "id": 1,
+        "name": "T-Shirt",
+        "price": 19.99,
+        "quantity": 0
+    }
+}
+```
+
+---
+
 ### `POST` `/api/products`
 
 Adds a product to the database.
