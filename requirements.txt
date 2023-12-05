@@ -2,7 +2,6 @@ blinker==1.6.3
 certifi==2023.11.17
 charset-normalizer==3.3.2
 click==8.1.7
--e git+ssh://git@github.com/Group-Project-Team-4/Web-App.git@000fae40eb9c15f2de2ef88d97c73190ed7fbd08#egg=clothing_store
 coverage==7.3.2
 Flask==3.0.0
 idna==3.6
