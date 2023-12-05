@@ -1,6 +1,6 @@
 # Web-App
 
-Flask web application for group project.
+Flask web application for group project. Please see [this file](https://github.com/Group-Project-Team-4/Web-App/blob/main/web-app-lab.md) for the lab instructions for end-to-end (E2E) testing.
 
 ## Installation
 
@@ -56,28 +56,23 @@ flask --app clothing_store run --debug
 
 ### Testing
 
-First install the testing tools `pytest` and `coverage` in your virtual environment
-
-```sh
-pip install pytest coverage
-```
-
-#### Pytest
-
 1. For testing with `pytest` to work you will need to install the clothing store application with `pip`. Make sure you are in the root project directory `Web-App` and your virtual environment is activated.
 
-```sh
-pip install -e .
-```
+    ```sh
+    pip install -e .
+    ```
 
-2. Then, from the root of the repository run the `pytest` command.
+2. Follow [these lab instructions](https://github.com/Group-Project-Team-4/Web-App/blob/main/web-app-lab.md#tutorial) to learn a little bit about how to create and run end-to-end (E2E) testing for web applications.
 
-**IMPORTANT**: The `tests` directory also contains Selenium and API tests, which **ARE NOT** Pytest scripts. Running `pytest` on its own will cause it to source incompatible files, which will create errors and fail to run the actual test scripts. Anytime you want to run `pytest` or `coverage`, you **MUST** specify the `tests/pytest` directory in the command to make sure only the appropriate test scripts are sourced.
+    **OR**
 
-```sh
-pytest tests/pytest
-```
+2. From the root of the repository run the `pytest tests/pytest` command to run default test scripts.
 
+    **IMPORTANT**: The `tests` directory also contains Selenium and API tests, which **ARE NOT** Pytest scripts. Running `pytest` on its own will cause it to source incompatible files, which will create errors and fail to run the actual test scripts. Anytime you want to run `pytest` or `coverage`, you **MUST** specify the `tests/pytest` directory in the command to make sure only the appropriate test scripts are sourced.
+
+    ```sh
+    pytest tests/pytest
+    ```
 
 #### Coverage
 
